@@ -29,22 +29,22 @@ public class EchoClient {
         throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
-            Bootstrap b = new Bootstrap();
-            b.group(group)
-                .channel(NioSocketChannel.class)
+            Bootstrap b = new Bootstrap();      //创建Bootstrap
+            b.group(group)                      //指定EventLoopGroup 以处理客户端事件；需要适用于NIO的实现
+                .channel(NioSocketChannel.class)//适用于NIO传输的Channel类型
                 .remoteAddress(new InetSocketAddress(host, port))
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch)
-                        throws Exception {
+                        throws Exception {  //在创建Channel时，向ChannelPipeline中添加一个EchoClientHandler
                         ch.pipeline().addLast(
                              new EchoClientHandler());
                     }
                 });
-            ChannelFuture f = b.connect().sync();
-            f.channel().closeFuture().sync();
+            ChannelFuture f = b.connect().sync();       //连接到远程节点，阻塞等待直到连接完成
+            f.channel().closeFuture().sync();           //阻塞直到Channel关闭
         } finally {
-            group.shutdownGracefully().sync();
+            group.shutdownGracefully().sync();          //关闭释放所有资源
         }
     }
 

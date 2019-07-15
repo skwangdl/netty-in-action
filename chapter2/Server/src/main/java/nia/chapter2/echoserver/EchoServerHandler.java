@@ -8,13 +8,10 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 
-/**
- * Listing 2.1 EchoServerHandler
- *
- * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
- */
-@Sharable
+@Sharable   //标识一个ChannelHandler 可以被多个Channel安全的共享
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
+
+    //每次读取消息都要调用，实现业务
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf in = (ByteBuf) msg;
@@ -23,6 +20,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         ctx.write(in);
     }
 
+    //读取最后一条消息调用
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx)
             throws Exception {
@@ -30,6 +28,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
                 .addListener(ChannelFutureListener.CLOSE);
     }
 
+    //抛出异常时调用
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx,
         Throwable cause) {
