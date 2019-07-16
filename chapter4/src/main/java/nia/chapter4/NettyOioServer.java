@@ -18,7 +18,8 @@ public class NettyOioServer {
             throws Exception {
         System.out.println("please input your server port");
         Scanner scanner = new Scanner(System.in);
-        new NettyNioServer().server(8081);
+        String port = scanner.nextLine();
+        new NettyNioServer().server(Integer.valueOf(port));
     }
 
     public void server(int port)
