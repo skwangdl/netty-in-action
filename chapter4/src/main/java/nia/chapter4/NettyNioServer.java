@@ -10,13 +10,17 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
+import java.util.Scanner;
 
-/**
- * Listing 4.4 Asynchronous networking with Netty
- *
- * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
- */
 public class NettyNioServer {
+
+    public static void main(String[] args)
+            throws Exception {
+        System.out.println("please input your server port");
+        Scanner scanner = new Scanner(System.in);
+        new NettyNioServer().server(8080);
+    }
+
     public void server(int port) throws Exception {
         final ByteBuf buf =
                 Unpooled.unreleasableBuffer(Unpooled.copiedBuffer("Hi!\r\n",

@@ -10,13 +10,17 @@ import io.netty.channel.socket.oio.OioServerSocketChannel;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
+import java.util.Scanner;
 
-/**
- * Listing 4.3 Blocking networking with Netty
- *
- * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
- */
 public class NettyOioServer {
+
+    public static void main(String[] args)
+            throws Exception {
+        System.out.println("please input your server port");
+        Scanner scanner = new Scanner(System.in);
+        new NettyNioServer().server(8081);
+    }
+
     public void server(int port)
             throws Exception {
         final ByteBuf buf =
