@@ -9,7 +9,7 @@ public class DummyChannelHandlerContext extends AbstractChannelHandlerContext {
     public static ChannelHandlerContext DUMMY_INSTANCE = new DummyChannelHandlerContext(
             null,
             null,
-            null,
+            "kepler",
             true,
             true
     );
