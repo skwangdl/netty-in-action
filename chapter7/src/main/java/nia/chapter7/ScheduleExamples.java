@@ -2,6 +2,7 @@ package nia.chapter7;
 
 import io.netty.channel.Channel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.junit.Test;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -25,53 +26,54 @@ public class ScheduleExamples {
     /**
      * Listing 7.2 Scheduling a task with a ScheduledExecutorService
      * */
-    public static void schedule() {
-        ScheduledExecutorService executor =
-                Executors.newScheduledThreadPool(10);
-
+    @Test
+    public void schedule() {
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
         ScheduledFuture<?> future = executor.schedule(
             new Runnable() {
             @Override
             public void run() {
-                System.out.println("Now it is 60 seconds later");
+                System.out.println("Now it is 3 seconds later");
             }
-        }, 60, TimeUnit.SECONDS);
-        //...
+        }, 3, TimeUnit.SECONDS);
         executor.shutdown();
     }
 
     /**
      * Listing 7.3 Scheduling a task with EventLoop
      * */
-    public static void scheduleViaEventLoop() {
+    @Test
+    public void scheduleViaEventLoop() {
         Channel ch = CHANNEL_FROM_SOMEWHERE; // get reference from somewhere
         ScheduledFuture<?> future = ch.eventLoop().schedule(
             new Runnable() {
             @Override
             public void run() {
-                System.out.println("60 seconds later");
+                System.out.println("5 seconds later");
             }
-        }, 60, TimeUnit.SECONDS);
+        }, 5, TimeUnit.SECONDS);
     }
 
     /**
      * Listing 7.4 Scheduling a recurring task with EventLoop
      * */
-    public static void scheduleFixedViaEventLoop() {
+    @Test
+    public void scheduleFixedViaEventLoop() {
         Channel ch = CHANNEL_FROM_SOMEWHERE; // get reference from somewhere
         ScheduledFuture<?> future = ch.eventLoop().scheduleAtFixedRate(
            new Runnable() {
            @Override
            public void run() {
-               System.out.println("Run every 60 seconds");
+               System.out.println("Run every 5 seconds");
                }
-           }, 60, 60, TimeUnit.SECONDS);
+           }, 5, 5, TimeUnit.SECONDS);
     }
 
     /**
      * Listing 7.5 Canceling a task using ScheduledFuture
      * */
-    public static void cancelingTaskUsingScheduledFuture(){
+    @Test
+    public void cancelingTaskUsingScheduledFuture(){
         Channel ch = CHANNEL_FROM_SOMEWHERE; // get reference from somewhere
         ScheduledFuture<?> future = ch.eventLoop().scheduleAtFixedRate(
                 new Runnable() {

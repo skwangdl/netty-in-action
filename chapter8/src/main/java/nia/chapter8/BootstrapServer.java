@@ -8,6 +8,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.junit.Test;
 
 import java.net.InetSocketAddress;
 
@@ -22,7 +23,8 @@ public class BootstrapServer {
     /**
      * Listing 8.4 Bootstrapping a server
      * */
-    public void bootstrap() {
+    @Test
+    public void testBootstrap() {
         NioEventLoopGroup group = new NioEventLoopGroup();
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(group)

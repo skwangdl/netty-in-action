@@ -8,6 +8,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.oio.OioSocketChannel;
+import org.junit.Test;
 
 import java.net.InetSocketAddress;
 
@@ -18,7 +19,8 @@ import java.net.InetSocketAddress;
  */
 public class InvalidBootstrapClient {
 
-    public static void main(String args[]) {
+    @Test
+    public void start() {
         InvalidBootstrapClient client = new InvalidBootstrapClient();
         client.bootstrap();
     }

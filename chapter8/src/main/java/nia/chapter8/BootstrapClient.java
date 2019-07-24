@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.junit.Test;
 
 import java.net.InetSocketAddress;
 
@@ -15,7 +16,9 @@ import java.net.InetSocketAddress;
  * @author <a href="mailto:mawolfthal@gmail.com">Marvin Wolfthal</a>
  */
 public class BootstrapClient {
-    public static void main(String args[]) {
+
+    @Test
+    public void start() {
         BootstrapClient client = new BootstrapClient();
         client.bootstrap();
     }
