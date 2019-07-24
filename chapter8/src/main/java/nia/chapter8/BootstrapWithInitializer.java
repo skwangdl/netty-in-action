@@ -6,6 +6,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpClientCodec;
 import io.netty.handler.codec.http.HttpObjectAggregator;
+import org.junit.Test;
 
 import java.net.InetSocketAddress;
 
@@ -19,7 +20,8 @@ public class BootstrapWithInitializer {
     /**
      * Listing 8.6 Bootstrapping and using ChannelInitializer
      * */
-    public void bootstrap() throws InterruptedException {
+    @Test
+    public void testBootstrap() throws InterruptedException {
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(new NioEventLoopGroup(), new NioEventLoopGroup())
             .channel(NioServerSocketChannel.class)

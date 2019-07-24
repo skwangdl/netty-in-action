@@ -9,6 +9,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
+import org.junit.Test;
 
 import java.net.InetSocketAddress;
 
@@ -22,7 +23,8 @@ public class BootstrapClientWithOptionsAndAttrs {
     /**
      * Listing 8.7 Using attributes
      * */
-    public void bootstrap() {
+    @Test
+    public void testBootstrap() {
         final AttributeKey<Integer> id = AttributeKey.newInstance("ID");
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(new NioEventLoopGroup())
@@ -32,7 +34,7 @@ public class BootstrapClientWithOptionsAndAttrs {
                     @Override
                     public void channelRegistered(ChannelHandlerContext ctx)
                         throws Exception {
-                        Integer idValue = ctx.channel().attr(id).get();
+                        Integer idValue = ctx.channel().attr(id).get();         //检索属性值
                         // do something with the idValue
                     }
 

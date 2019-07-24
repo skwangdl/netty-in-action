@@ -10,6 +10,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.junit.Test;
 
 import java.net.InetSocketAddress;
 
@@ -24,7 +25,9 @@ public class BootstrapSharingEventLoopGroup {
     /**
      * Listing 8.5 Bootstrapping a server
      * */
-    public void bootstrap() {
+
+    @Test
+    public void testBootstrap() {
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(new NioEventLoopGroup(), new NioEventLoopGroup())
             .channel(NioServerSocketChannel.class)
@@ -44,7 +47,7 @@ public class BootstrapSharingEventLoopGroup {
                                     System.out.println("Received data");
                                 }
                             });
-                        bootstrap.group(ctx.channel().eventLoop());
+                        bootstrap.group(ctx.channel().eventLoop());         //使用与分配给已被接受的子Channel 相同的EventLoop
                         connectFuture = bootstrap.connect(
                             new InetSocketAddress("www.manning.com", 80));
                     }

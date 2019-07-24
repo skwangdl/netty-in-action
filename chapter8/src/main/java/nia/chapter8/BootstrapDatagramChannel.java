@@ -8,6 +8,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.oio.OioEventLoopGroup;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.channel.socket.oio.OioDatagramChannel;
+import org.junit.Test;
 
 import java.net.InetSocketAddress;
 
@@ -22,7 +23,8 @@ public class BootstrapDatagramChannel {
     /**
      * Listing 8.8 Using Bootstrap with DatagramChannel
      */
-    public void bootstrap() {
+    @Test
+    public void testBootstrap() {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(new OioEventLoopGroup()).channel(
             OioDatagramChannel.class).handler(
