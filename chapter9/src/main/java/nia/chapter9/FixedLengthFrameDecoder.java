@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
-public class FixedLengthFrameDecoder extends ByteToMessageDecoder {
+public class FixedLengthFrameDecoder extends ByteToMessageDecoder {     //扩展ByteToMessageDecoder以处理入站字节，并将它们解码为消息
     private final int frameLength;
 
     public FixedLengthFrameDecoder(int frameLength) {
