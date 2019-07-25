@@ -32,4 +32,19 @@ public class TestDecoder {
         Assert.assertTrue(embeddedChannel.finish());
         System.out.println(embeddedChannel.readInbound());
     }
+
+    @Test
+    public void testToIntegerDecoder(){
+        ByteBuf byteBuf = Unpooled.buffer();
+        for (int i = 1; i < 10; i++) {
+            byteBuf.writeByte(i);
+        }
+        EmbeddedChannel embeddedChannel = new EmbeddedChannel(new ToIntegerDecoder());
+        Assert.assertTrue(embeddedChannel.writeInbound(byteBuf));
+        Assert.assertTrue(embeddedChannel.finish());
+        for(int i = 0; i < 10; i ++){
+            System.out.println(embeddedChannel.readInbound());
+            //TODO
+        }
+    }
 }
