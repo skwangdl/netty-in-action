@@ -110,5 +110,4 @@ public class TestDecoder {
         System.out.println(embeddedChannel.readInbound());
     }
 
-    
 }

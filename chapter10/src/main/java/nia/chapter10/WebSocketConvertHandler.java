@@ -14,13 +14,9 @@ import java.util.List;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 @Sharable
-public class WebSocketConvertHandler extends
-     MessageToMessageCodec<WebSocketFrame,
-     WebSocketConvertHandler.MyWebSocketFrame> {
+public class WebSocketConvertHandler extends MessageToMessageCodec<WebSocketFrame, WebSocketConvertHandler.MyWebSocketFrame> {
      @Override
-     protected void encode(ChannelHandlerContext ctx,
-         WebSocketConvertHandler.MyWebSocketFrame msg,
-         List<Object> out) throws Exception {
+     protected void encode(ChannelHandlerContext ctx, WebSocketConvertHandler.MyWebSocketFrame msg, List<Object> out) throws Exception {
          ByteBuf payload = msg.getData().duplicate().retain();
          switch (msg.getType()) {
              case BINARY:
@@ -47,8 +43,7 @@ public class WebSocketConvertHandler extends
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, WebSocketFrame msg,
-        List<Object> out) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, WebSocketFrame msg, List<Object> out) throws Exception {
         ByteBuf payload = msg.content().duplicate().retain();
         if (msg instanceof BinaryWebSocketFrame) {
             out.add(new MyWebSocketFrame(
