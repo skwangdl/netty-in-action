@@ -23,7 +23,5 @@ public class SafeByteToMessageDecoder extends ByteToMessageDecoder {
                 in.skipBytes(readable);
                 throw new TooLongFrameException("Frame too big!");
         }
-        // do something
-        // ...
     }
 }
