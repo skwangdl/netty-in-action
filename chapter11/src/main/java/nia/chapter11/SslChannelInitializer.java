@@ -13,8 +13,8 @@ import javax.net.ssl.SSLEngine;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class SslChannelInitializer extends ChannelInitializer<Channel> {
-    private final SslContext context;
-    private final boolean startTls;
+    private final SslContext context;       //传入要使用的SslContext
+    private final boolean startTls;         //如果设置为true，第一个写入的消息将不会被加密
 
     public SslChannelInitializer(SslContext context,
         boolean startTls) {
