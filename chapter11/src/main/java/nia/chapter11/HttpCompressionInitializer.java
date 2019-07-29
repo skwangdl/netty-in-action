@@ -26,11 +26,11 @@ public class HttpCompressionInitializer extends ChannelInitializer<Channel> {
         if (isClient) {
             pipeline.addLast("codec", new HttpClientCodec());
             pipeline.addLast("decompressor",
-            new HttpContentDecompressor());
+            new HttpContentDecompressor());             //客户端，添加HttpContentDecompressor以处理来自服务器的压缩内容
         } else {
             pipeline.addLast("codec", new HttpServerCodec());
             pipeline.addLast("compressor",
-            new HttpContentCompressor());
+            new HttpContentCompressor());               //服务端，添加HttpContentCompressor以处理来自服务器的压缩内容
         }
     }
 }

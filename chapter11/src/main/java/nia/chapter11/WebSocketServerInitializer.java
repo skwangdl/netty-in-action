@@ -17,12 +17,17 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class WebSocketServerInitializer extends ChannelInitializer<Channel> {
+    /**
+     * 想要为WebSocket添加安全性，只需要将SslHandler作为第一个ChannelHandler添加到ChannelPipeline中
+     * @param ch
+     * @throws Exception
+     */
     @Override
     protected void initChannel(Channel ch) throws Exception {
         ch.pipeline().addLast(
             new HttpServerCodec(),
-            new HttpObjectAggregator(65536),
-            new WebSocketServerProtocolHandler("/websocket"),
+            new HttpObjectAggregator(65536),        //为握手提供聚合的HttpRequest
+            new WebSocketServerProtocolHandler("/websocket"),   //如果被请求的端点是“/websocket”则处理该升级握手
             new TextFrameHandler(),
             new BinaryFrameHandler(),
             new ContinuationFrameHandler());

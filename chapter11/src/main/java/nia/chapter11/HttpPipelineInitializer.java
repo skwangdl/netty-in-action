@@ -24,7 +24,7 @@ public class HttpPipelineInitializer extends ChannelInitializer<Channel> {
     @Override
     protected void initChannel(Channel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        if (client) {
+        if (client) {                                                       //如果是client, 则添加HttpResponseDecoder以处理
             pipeline.addLast("decoder", new HttpResponseDecoder());
             pipeline.addLast("encoder", new HttpRequestEncoder());
         } else {

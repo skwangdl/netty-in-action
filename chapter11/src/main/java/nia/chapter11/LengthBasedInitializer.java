@@ -13,7 +13,7 @@ public class LengthBasedInitializer extends ChannelInitializer<Channel> {
     @Override
     protected void initChannel(Channel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast(
+        pipeline.addLast(           //使用LengthFieldBasedFrameDecoder解码将帧长度编码到帧起始的前8个字节中的消息
                 new LengthFieldBasedFrameDecoder(64 * 1024, 0, 8));
         pipeline.addLast(new FrameHandler());
     }
@@ -23,7 +23,7 @@ public class LengthBasedInitializer extends ChannelInitializer<Channel> {
         @Override
         public void channelRead0(ChannelHandlerContext ctx,
              ByteBuf msg) throws Exception {
-            // Do something with the frame
+            // Do something with the frame      //处理帧数据
         }
     }
 }
