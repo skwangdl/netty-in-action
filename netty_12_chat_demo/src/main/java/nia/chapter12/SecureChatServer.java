@@ -6,8 +6,12 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
+import org.junit.Test;
 
+import javax.net.ssl.SSLException;
 import java.net.InetSocketAddress;
+import java.security.cert.CertificateException;
+import java.util.Scanner;
 
 /**
  * Listing 12.7 Adding encryption to the ChatServer
@@ -21,18 +25,10 @@ public class SecureChatServer extends ChatServer {
         this.context = context;
     }
 
-    @Override
-    protected ChannelInitializer<Channel> createInitializer(
-        ChannelGroup group) {
-        return new SecureChatServerInitializer(group, context);
-    }
-
-    public static void main(String[] args) throws Exception {
-        if (args.length != 1) {
-            System.err.println("Please give port as argument");
-            System.exit(1);
-        }
-        int port = Integer.parseInt(args[0]);
+    @Test
+    public void start() throws CertificateException, SSLException {
+        Scanner scanner = new Scanner(System.in);
+        int port = Integer.valueOf(scanner.nextLine());
         SelfSignedCertificate cert = new SelfSignedCertificate();
         SslContext context = SslContext.newServerContext(
                 cert.certificate(), cert.privateKey());
@@ -45,5 +41,11 @@ public class SecureChatServer extends ChatServer {
             }
         });
         future.channel().closeFuture().syncUninterruptibly();
+    }
+
+    @Override
+    protected ChannelInitializer<Channel> createInitializer(
+        ChannelGroup group) {
+        return new SecureChatServerInitializer(group, context);
     }
 }

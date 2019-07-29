@@ -10,8 +10,12 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.concurrent.ImmediateEventExecutor;
+import org.junit.Test;
 
+import javax.net.ssl.SSLException;
 import java.net.InetSocketAddress;
+import java.security.cert.CertificateException;
+import java.util.Scanner;
 
 /**
  * Listing 12.4 Bootstrapping the server
@@ -23,6 +27,22 @@ public class ChatServer {
         new DefaultChannelGroup(ImmediateEventExecutor.INSTANCE);
     private final EventLoopGroup group = new NioEventLoopGroup();
     private Channel channel;
+
+    @Test
+    public void start() throws CertificateException, SSLException {
+        Scanner scanner = new Scanner(System.in);
+        int port = Integer.valueOf(scanner.nextLine());
+        final ChatServer endpoint = new ChatServer();
+        ChannelFuture future = endpoint.start(
+                new InetSocketAddress(port));
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                endpoint.destroy();
+            }
+        });
+        future.channel().closeFuture().syncUninterruptibly();
+    }
 
     public ChannelFuture start(InetSocketAddress address) {
         ServerBootstrap bootstrap = new ServerBootstrap();
@@ -46,23 +66,5 @@ public class ChatServer {
         }
         channelGroup.close();
         group.shutdownGracefully();
-    }
-
-    public static void main(String[] args) throws Exception {
-        if (args.length != 1) {
-            System.err.println("Please give port as argument");
-            System.exit(1);
-        }
-        int port = Integer.parseInt(args[0]);
-        final ChatServer endpoint = new ChatServer();
-        ChannelFuture future = endpoint.start(
-                new InetSocketAddress(port));
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                endpoint.destroy();
-            }
-        });
-        future.channel().closeFuture().syncUninterruptibly();
     }
 }
