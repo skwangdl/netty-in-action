@@ -25,8 +25,8 @@ public class SecureChatServer extends ChatServer {
         this.context = context;
     }
 
-    @Test
-    public void start() throws CertificateException, SSLException {
+    public static void main(String[] args) throws CertificateException, SSLException {
+        System.out.println("input port: ");
         Scanner scanner = new Scanner(System.in);
         int port = Integer.valueOf(scanner.nextLine());
         SelfSignedCertificate cert = new SelfSignedCertificate();

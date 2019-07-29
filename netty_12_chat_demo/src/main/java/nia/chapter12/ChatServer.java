@@ -28,8 +28,8 @@ public class ChatServer {
     private final EventLoopGroup group = new NioEventLoopGroup();
     private Channel channel;
 
-    @Test
-    public void start() throws CertificateException, SSLException {
+    public static void main(String[] args) throws CertificateException, SSLException {
+        System.out.println("input port: ");
         Scanner scanner = new Scanner(System.in);
         int port = Integer.valueOf(scanner.nextLine());
         final ChatServer endpoint = new ChatServer();

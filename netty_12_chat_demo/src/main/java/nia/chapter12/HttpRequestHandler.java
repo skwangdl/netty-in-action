@@ -40,7 +40,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     @Override
     public void channelRead0(ChannelHandlerContext ctx,
         FullHttpRequest request) throws Exception {
-        if (wsUri.equalsIgnoreCase(request.getUri())) {
+        if (wsUri.equalsIgnoreCase(request.getUri())) {         //如果请求了WebSocket协议升级，则增加引用计数并将它传递给下一个ChannelInboundHandler
             ctx.fireChannelRead(request.retain());
         } else {
             if (HttpHeaders.is100ContinueExpected(request)) {
@@ -51,7 +51,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
                 request.getProtocolVersion(), HttpResponseStatus.OK);
             response.headers().set(
                 HttpHeaders.Names.CONTENT_TYPE,
-                "text/html; charset=UTF-8");
+                "text/html; charset=UTF-8");            //读取index.html
             boolean keepAlive = HttpHeaders.isKeepAlive(request);
             if (keepAlive) {
                 response.headers().set(
